@@ -12,7 +12,7 @@ const App = () => {
 
   const onSocketOpen = useCallback(() => {
     setIsConnected(true);
-    const name = prompt('Enter your name');
+    const name = prompt('Informe o seu nome:');
     socket.current?.send(JSON.stringify({ action: 'setName', name }));
   }, []);
 
