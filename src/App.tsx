@@ -9,11 +9,14 @@ const App = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [members, setMembers] = useState([]);
   const [chatRows, setChatRows] = useState<React.ReactNode[]>([]);
+  let name;
 
   const onSocketOpen = useCallback(() => {
     setIsConnected(true);
-    const name = prompt('Informe o seu nome:');
-    socket.current?.send(JSON.stringify({ action: 'setName', name }));
+    name = prompt('Informe o seu nome:');
+    if (name !== null && name !== "") {
+      socket.current?.send(JSON.stringify({ action: 'setName', name }));
+    }
   }, []);
 
   const onSocketClose = useCallback(() => {
@@ -54,20 +57,26 @@ const App = () => {
 
   const onSendPrivateMessage = useCallback((to: string) => {
     const message = prompt('Mensagem privada para: ' + to);
-    socket.current?.send(JSON.stringify({
-      action: 'sendPrivate',
-      message,
-      to,
-    }));
+    if (message !== null && message !== "" && to !== name) {
+      socket.current?.send(JSON.stringify({
+        action: 'sendPrivate',
+        message,
+        to,
+      }));
+    }
   }, []);
 
   const onSendPublicMessage = useCallback(() => {
     const message = prompt('Mensagem pública');
-    socket.current?.send(JSON.stringify({
-      action: 'sendPublic',
-      message,
-    }));
+    if (message !== null && message !== "") {
+      socket.current?.send(JSON.stringify({
+        action: 'sendPublic',
+        message,
+      }));
+    }
   }, []);
+
+  const onSendBotMessage = useCallback(() => {  }, []);
 
   const onDisconnect = useCallback(() => {
     if (isConnected) {

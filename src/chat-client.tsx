@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Paper from '@mui/material/Paper';
-import { borderColor } from '@mui/system';
 
 interface Props {
   isConnected: boolean;
@@ -32,6 +31,8 @@ export const ChatClient = (props: Props) => {
       <CssBaseline />
       <Container maxWidth="lg" style={{ height: '90%' }}>
         <Grid container style={{ height: '100%' }}>
+
+          {/** Grid com os contatos conectados */}
           <Grid item xs={2} style={{ backgroundColor: '#232F3E', color: 'white' }}>
             <List component="nav">
               {props.members.map(item =>
@@ -41,6 +42,8 @@ export const ChatClient = (props: Props) => {
               )}
             </List>
           </Grid>
+
+          {/* Grid das mensagens enviadas  */}
           <Grid style={{ position: 'relative' }} item container direction="column" xs={10} >
             <Paper style={{ flex: 1 }}>
               <Grid item container style={{ height: '100%' }} direction="column">
@@ -55,6 +58,8 @@ export const ChatClient = (props: Props) => {
                     )}
                   </ul>
                 </Grid>
+
+                {/* Botões de envio de mensagem */}
                 <Grid item style={{ margin: 10 }}>
                   {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor:"#232F3E"}} variant="outlined" size="small" disableElevation onClick={props.onPublicMessage}>Mensagem pública</Button>}
                   {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor:"#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onDisconnect}>Sair</Button>}
