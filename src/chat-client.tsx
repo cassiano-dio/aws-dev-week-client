@@ -16,6 +16,7 @@ interface Props {
   onPrivateMessage: (to: string) => void;
   onConnect: () => void;
   onDisconnect: () => void;
+  onBotMessage: () => void;
 }
 
 export const ChatClient = (props: Props) => {
@@ -36,13 +37,13 @@ export const ChatClient = (props: Props) => {
           <Grid item xs={2} style={{ backgroundColor: '#232F3E', color: 'white' }}>
             <List component="nav">
               {props.members.map(item =>
-                <ListItem key={item} onClick={() => { props.onPrivateMessage(item); }} button>
+                <ListItem key={item} onClick={() => {{props.onPrivateMessage(item)};}} button>
                   <ListItemText style={{ fontWeight: 800 }} primary={item} />
                 </ListItem>
               )}
             </List>
           </Grid>
-
+          
           {/* Grid das mensagens enviadas  */}
           <Grid style={{ position: 'relative' }} item container direction="column" xs={10} >
             <Paper style={{ flex: 1 }}>
@@ -61,9 +62,10 @@ export const ChatClient = (props: Props) => {
 
                 {/* Botões de envio de mensagem */}
                 <Grid item style={{ margin: 10 }}>
-                  {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor:"#232F3E"}} variant="outlined" size="small" disableElevation onClick={props.onPublicMessage}>Mensagem pública</Button>}
-                  {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor:"#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onDisconnect}>Sair</Button>}
-                  {!props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor:"#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onConnect}>Entrar</Button>}
+                  {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor: "#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onPublicMessage}>Mensagem pública</Button>}
+                  {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor: "#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onBotMessage}>Mensagem para o Bot</Button>}
+                  {props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor: "#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onDisconnect}>Sair</Button>}
+                  {!props.isConnected && <Button style={{ marginRight: 7, color: "#232F3E", borderColor: "#232F3E" }} variant="outlined" size="small" disableElevation onClick={props.onConnect}>Entrar</Button>}
                 </Grid>
               </Grid>
               <div style={{
